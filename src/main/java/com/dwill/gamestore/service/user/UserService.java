@@ -23,6 +23,7 @@ import java.util.UUID;
 public class UserService implements UserDetailsService {
 
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
+    private static final String EMAIL_OR_PASSWORD_NOT_FOUND_MSG = "email %s or password %s was not found";
     private final UserRepo userRepo;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -34,6 +35,13 @@ public class UserService implements UserDetailsService {
         return userRepo.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException
                         (String.format(USER_NOT_FOUND_MSG, email)));
+    }
+
+    public AppUser getUserByEmailAndPassword(String email, String password)
+    {
+        return userRepo.findByEmailAndPassword(email, password)
+                .orElseThrow(() -> new UsernameNotFoundException
+                        (String.format(EMAIL_OR_PASSWORD_NOT_FOUND_MSG, email, password)));
     }
 
     public String signUpUser(AppUser appUser) {
@@ -79,6 +87,11 @@ public class UserService implements UserDetailsService {
 
         return token;
     }
+
+    public AppUser updateEmployee(AppUser employee) {
+        return userRepo.save(employee);
+    }
+
 
     public AppUser findUser(Long id)
     {

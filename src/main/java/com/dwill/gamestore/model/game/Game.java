@@ -18,17 +18,19 @@ public class Game implements Serializable {
     private Integer year;
     private Integer rating;
     private Float price;
+    private String image;
 
     public Game() {
     }
 
-    public Game(Long id, String name, String genre, Integer year, Integer rating, Float price) {
+    public Game(Long id, String name, String genre, Integer year, Integer rating, Float price, String image) {
         Id = id;
         this.name = name;
         this.genre = genre;
         this.year = year;
         this.rating = rating;
         this.price = price;
+        this.image = image;
     }
 
     public Long getId() {
@@ -77,6 +79,14 @@ public class Game implements Serializable {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

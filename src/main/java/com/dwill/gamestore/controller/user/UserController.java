@@ -1,9 +1,11 @@
 package com.dwill.gamestore.controller.user;
 
 import com.dwill.gamestore.model.game.Game;
+import com.dwill.gamestore.model.user.AppUser;
 import com.dwill.gamestore.service.game.GameService;
 import com.dwill.gamestore.service.user.UserService;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,8 @@ public class UserController {
     private final UserService userService;
     private final GameService gameService;
 
-    @PutMapping("/buy/{UID}/{GID}")
-    public ResponseEntity<Game> purchaseGame(@PathVariable("UID") Long UID, @PathVariable("GID") Long GID) {
+    @GetMapping("/buy/{UID}/{GID}")
+    public ResponseEntity<User> purchaseGame(@PathVariable("UID") Long UID, @PathVariable("GID") Long GID) {
         userService.purchaseGame(UID, GID);
         return new ResponseEntity<>(HttpStatus.OK);
     }

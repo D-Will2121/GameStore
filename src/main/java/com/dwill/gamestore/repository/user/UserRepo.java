@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface UserRepo extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByEmail(String email);
     Optional<AppUser> findTopByName(String name);
+    Optional<AppUser> findByEmailAndPassword(String email, String password);
 
     @Transactional
     @Query("UPDATE AppUser c SET c.cash = ?1 WHERE c.id = ?2")
