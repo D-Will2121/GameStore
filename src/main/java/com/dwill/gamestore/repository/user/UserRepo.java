@@ -1,5 +1,6 @@
 package com.dwill.gamestore.repository.user;
 
+import com.dwill.gamestore.model.game.Game;
 import com.dwill.gamestore.model.user.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,6 +17,8 @@ public interface UserRepo extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByEmail(String email);
     Optional<AppUser> findTopByName(String name);
     Optional<AppUser> findByEmailAndPassword(String email, String password);
+    List<AppUser> findUsers();
+
 
     @Transactional
     @Query("UPDATE AppUser c SET c.cash = ?1 WHERE c.id = ?2")

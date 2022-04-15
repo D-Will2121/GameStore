@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.rmi.server.UID;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -88,8 +89,8 @@ public class UserService implements UserDetailsService {
         return token;
     }
 
-    public AppUser updateEmployee(AppUser employee) {
-        return userRepo.save(employee);
+    public List<AppUser> showAllUsers() {
+        return userRepo.findUsers();
     }
 
 
