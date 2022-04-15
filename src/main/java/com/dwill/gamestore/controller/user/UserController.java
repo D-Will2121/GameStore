@@ -33,12 +33,6 @@ public class UserController {
         return new ResponseEntity<>(game, HttpStatus.OK);
     }
 
-    @GetMapping("/users/all")
-    public ResponseEntity<List<AppUser>> showALlUsers() {
-        List<AppUser> appUser = userService.showAllUsers();
-        return new ResponseEntity<>(appUser, HttpStatus.OK);
-    }
-
     @GetMapping("/all/year/{year}")
     public ResponseEntity<List<Game>> searchByYear(@PathVariable("year") int year) {
         List<Game> game = gameService.SearchGamesByYear(year);
