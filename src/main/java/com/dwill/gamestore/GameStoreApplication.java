@@ -23,8 +23,8 @@ public class GameStoreApplication {
          CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://video-game-hub.netlify.app/",
-                "https://video-game-hub.netlify.app/content#horror", "https://video-game-hub.netlify.app/content#action-adventure",
-                "https://video-game-hub.netlify.app/content#puzzle#puzzle", "https://video-game-hub.netlify.app/content#sliceoflife#sliceoflife"));
+                "https://video-game-hub.netlify.app/horror/", "https://video-game-hub.netlify.app/content/",
+                "https://video-game-hub.netlify.app/puzzle/", "https://video-game-hub.netlify.app/sliceoflife/"));
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
                 "Accept", "Authorization", "Origin, Accept", "X-Requested-With",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers"));
