@@ -6,6 +6,7 @@ import com.dwill.gamestore.service.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,7 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admins/**").hasRole(ADMIN.name())
-                .antMatchers("/users*/registration/**").permitAll()
+                //.antMatchers("/users*/registration/**").permitAll()
+                .antMatchers("/users/**").permitAll()
+                .antMatchers("/login*/**").permitAll()
                 .anyRequest()
                 .authenticated().and()
                 .httpBasic()
@@ -39,9 +42,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+
     public void configure(WebSecurity web) throws Exception {
         web
-                .ignoring().antMatchers("/login", "/games/**");
+                .ignoring().antMatchers( "/**");
+    }
+
+    @Bean
+    public AuthenticationManager authenticationProvider() throws Exception
+    {
+        return super.authenticationManagerBean();
     }
 
     @Override

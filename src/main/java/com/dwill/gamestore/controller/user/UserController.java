@@ -21,10 +21,11 @@ public class UserController {
     private final UserService userService;
     private final GameService gameService;
 
-    @GetMapping("/buy/{UID}/{GID}")
-    public ResponseEntity<User> purchaseGame(@PathVariable("UID") Long UID, @PathVariable("GID") Long GID) {
-        userService.purchaseGame(UID, GID);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @GetMapping ("/buy/{username}/{GID}")
+    public ResponseEntity<AppUser> purchaseGame(@PathVariable("username") String username, @PathVariable("GID") Long GID) {
+        userService.purchaseGame(username, GID);
+        AppUser user = userService.getUserByEmail(username);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/all")

@@ -23,7 +23,7 @@ import java.util.UUID;
 public class UserService implements UserDetailsService {
 
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
-    private static final String EMAIL_OR_PASSWORD_NOT_FOUND_MSG = "email %s or password %s was not found";
+    private static final String EMAIL_NOT_FOUND_MSG = "email %s or password %s was not found";
     private final UserRepo userRepo;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -37,11 +37,11 @@ public class UserService implements UserDetailsService {
                         (String.format(USER_NOT_FOUND_MSG, email)));
     }
 
-    public AppUser getUserByEmailAndPassword(String email, String password)
+    public AppUser getUserByEmail(String email)
     {
-        return userRepo.findByEmailAndPassword(email, password)
+        return userRepo.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException
-                        (String.format(EMAIL_OR_PASSWORD_NOT_FOUND_MSG, email, password)));
+                        (String.format(EMAIL_NOT_FOUND_MSG, email)));
     }
 
     public String signUpUser(AppUser appUser) {
@@ -93,19 +93,19 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public AppUser findUser(Long id)
+    public AppUser findUser(String email)
     {
-        return userRepo.getById(id);
+        return getUserByEmail(email);
     }
 
-    public void  purchaseGame(Long UID, Long GID)
+    public void  purchaseGame(String email, Long GID)
     {
          Game game = gameService.findGame(GID);
-         AppUser user = findUser(UID);
+         AppUser user = findUser(email);
          if (game.getPrice() < user.getCash())
          {
              Float newCash = user.getCash() - game.getPrice();
-             userRepo.updateCash(newCash, UID);
+             userRepo.updateCash(newCash, user.getId());
              gameService.deleteGameByID(GID);
          }
          else throw new IllegalStateException("Not enough cash for purchase");
